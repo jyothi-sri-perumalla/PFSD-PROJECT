@@ -1,0 +1,33 @@
+{% extends 'Navbar/FacultyNavbar.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Manager</title>
+</head>
+<body>
+{% block body %}
+    <h1>Blog Post Manager</h1>
+
+    <h2>Add a New Blog Post</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Existing Blog Posts</h2>
+    <ul>
+        {% for blog in blogs %}
+        <li>
+            <a href="{% url 'facultyapp:blogpost' %}">{{ blog.Title }}</a>
+            <p>Published on: {{ blog.publication_date }}</p>
+        </li>
+        {% empty %}
+        <p>No blog posts available.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
+</body>
+</html>
